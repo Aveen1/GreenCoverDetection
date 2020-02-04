@@ -3,19 +3,14 @@ It takes coordinates as user input with the help of drawings, process it and sho
 build area and percentage of green area. 
 Output image with masking of detected green area. 
 
-We’ve used Flask for the application 
-
-Google Earth Engine for Landsat-8 and Copernicus Satellite for satellite imagery
-
-NDVI calculations through javascript and python 
-
-Numpy for mathematical calculations of Latitude and Longitudes
-
-Leaflet maps for the user interface 
-
-Toolbar for drawings using javascript
-
+We’ve used Flask for the application. 
+Google Earth Engine for Landsat-8 and Copernicus Satellite for satellite imagery.
+NDVI calculations through javascript and python. 
+Numpy for mathematical calculations of Latitude and Longitudes.
+Leaflet maps for the user interface. 
+Toolbar for drawings using javascript.
 Overall we have used Python, Javascript, Html and Css with Flask. 
+
 
 Running Application:
 1. Make sure you have Google Earth Engine api permission.
