@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 10%;
+            left: 0;
+            right: 0;
+        }
+
+        .button {
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px 10px 20px;
+            position: fixed;
+            width: 110px;
+            font-family: "playfairdisplay";
+            text-align: center;
+            top: 92%;
+            left: 65%;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            align-self: center;
+            cursor: pointer;
+            border-radius: 10px;
+
+
+        }
+
+        .text {
+            font-size: 18px;
+            color: black;
+            top: 92%;
+            position: fixed;
+            left: 20%;
+
+        }
+    </style>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map</title>
+</head>
+
+<body>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"> </script>
+    <div id='map'></div>
+    <script>
+
+        var map = L.map('map').setView([24.8607, 67.0011], 14);
+        // Set up the OSM layer
+        mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Initialise the FeatureGroup to store editable layers
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+
+        // Initialise the draw control and pass it the FeatureGroup of editable layers
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        map.addControl(drawControl);
+        // map.on('draw:created', function (e) {
+        // var type = e.layerType,
+        // layer = e.layer;
+        // if (type === 'marker') {
+        // layer.bindPopup('A popup!');
+        // }
+        // drawnItems.addLayer(layer);
+        // });
+        map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+
+            if (type === 'polygon' || type === 'rectangle') {
+                // structure the geojson object
+                var geojson = {};
+                geojson['type'] = 'Feature';
+                geojson['geometry'] = {};
+                geojson['geometry']['type'] = "Polygon";
+
+                // export the coordinates from the layer
+                coordinates = [];
+                latlngs = layer.getLatLngs();
+                for (var i = 0; i < latlngs.length; i++) {
+                    coordinates.push([latlngs[i].lng, latlngs[i].lat])
+                }
+
+                // push the coordinates to the json geometry
+                geojson['geometry']['coordinates'] = [coordinates];
+
+                // Finally, show the poly as a geojson object in the console
+                window.alert(JSON.stringify(geojson));
+                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
+                var dlAnchorElem = document.getElementById('downloadAnchorElem');
+                dlAnchorElem.setAttribute("href",     dataStr     );
+                dlAnchorElem.setAttribute("download", "scene.geojson");
+                dlAnchorElem.click();
+
+
+            }
+
+            if (type === "circle") {
+                // structure the geojson object
+                var theCenterPt = layer.getLatLng();
+
+                var center = [theCenterPt.lng, theCenterPt.lat];
+                
+
+                var theRadius = layer.getRadius();
+                // push the coordinates to the json geometry
+                var geojson = {};
+                geojson['type'] = 'Feature';
+                geojson['geometry'] = {};
+                geojson['geometry']['type'] = "Polygon";
+                geojson['geometry']['radius'] = theRadius;
+                geojson['geometry']['center'] = [center];
+
+
+                // Finally, show the poly as a geojson object in the console
+                window.alert(JSON.stringify(geojson));
+                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
+                var dlAnchorElem = document.getElementById('downloadAnchorElem');
+                dlAnchorElem.setAttribute("href",     dataStr     );
+                dlAnchorElem.setAttribute("download", "scene.geojson");
+                dlAnchorElem.click();
+            }
+
+            drawnItems.addLayer(layer);
+});
+
+        // map.addEventListener('mousedown', function (ev) {
+        //     start = ev.latlng;
+        // });
+        // map.addEventListener('mouseup', function (ev) {
+        //     end = ev.latlng;
+        //     window.alert("POINT 1: " + start.lat + " " + start.lng + " " + "POINT 2: " + end.lat + " " + end.lng + " ");
+        // });
+
+
+        function copyStringToClipboard(str) {
+            // Create new element
+            var el = document.createElement('textarea');
+            // Set value (string to be copied)
+            el.value = str;
+            // Set non-editable to avoid focus and move outside of view
+            el.setAttribute('readonly', '');
+            el.style = { position: 'absolute', left: '-9999px' };
+            document.body.appendChild(el);
+            // Select text inside element
+            el.select();
+            // Copy text to clipboard
+            document.execCommand('copy');
+            // Remove temporary element
+            document.body.removeChild(el);
+        }
+
+        // map.on("contextmenu", function (event) {
+        //     lats.push(event.latlng.lat);
+        //     longs.push(event.latlng.lng);
+        //     L.marker(event.latlng).addTo(map);
+        //     //window.alert("HAMAMED")
+        // });
+        // map.on("dblclick", function (event) {
+        //     var i;
+        //     var out = "";
+        //     for (i = 0; i < lats.length; i++) {
+        //         out = out + longs[i] + "," + lats[i] + "\n";
+        //     }
+        //     window.alert(out)
+
+        //     copyStringToClipboard(out);
+        // });
+
+
+        // document.getElementById("transitmap").addEventListener("contextmenu", function (event) {
+        //     // Prevent the browser's context menu from appearing
+        //     event.preventDefault();
+
+        //     // Add marker
+        //     // L.marker([lat, lng], ....).addTo(map);
+        //     alert(lat + ' - ' + lng);
+
+        //     return false; // To disable default popup.
+        // });
+
+    </script>
+
+    <div>
+        <form action="/result" entype="multipart/formdata">
+            <button class="button" onclick="result()">Submit</button>
+        </form>
+        <a id="downloadAnchorElem" href="C:\Users\admin\PycharmProjects\greenproject\" style="display:none "></a>
+
+
+    </div>
+
+    <div class="text">Select Co-ordinates with the help of toolbar of your favourite place to analyze Green Area.
+        <br> Click Submit to continue.</div>
+
+</body>
+
+</html>

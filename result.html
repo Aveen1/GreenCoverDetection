@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Results</title>
+ <style>
+ * {
+  box-sizing: border-box;
+}
+
+     .column {
+        float: left;
+        width: 50%;
+         padding: 10px;
+         height: 300px;
+         margin-top: 40px;
+     }
+
+     /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .button{
+         font-size: 18px;
+         display: block;
+         text-align: left;
+
+    }
+
+    .text{
+
+         font-size: 15px;
+         text-align: left;
+         color: black;
+         font-weight: lighter;
+         font-family: raleway
+
+    }
+     .img{
+         margin-top: 60px;
+         margin-left: 100px;
+         height: 500px;
+         width: 500px;
+     }
+
+
+
+    </style>
+
+</head>
+<body>
+<div class="row">
+    <div class="column">
+        <img class="img" src="{{url_for('static', filename='v.jpg')}}" />
+
+            <form action="/code" entype="multipart/formdata">
+                <button class="button button1" onclick="code()" style="margin-top: 80px; margin-left: 280px;
+                padding: 10px 50px 10px 50px; background: dodgerblue; color: white; cursor: pointer; font-size: 22px;
+                display: inline-block; border-radius: 10px; font-family: raleway;
+                ">Process</button>
+            </form>
+    </div>
+    <div class="column">
+
+            <h3>Total Area (sq. km)</h3>
+            <textarea rows="1.5" cols="20" readonly>{{ b }}</textarea>
+            <h3>Green Area (sq. km)</h3>
+            <textarea rows="1.5" cols="20" readonly>{{ c }} </textarea>
+            <h3>Build Area (sq. km)</h3>
+            <textarea rows="1.5" cols="20" readonly>{{ d }}</textarea>
+            <h3>Percentage (%)</h3>
+            <textarea rows="1.5" cols="20" readonly>{{ e }} </textarea>
+
+
+
+           <div class="text">
+               <h1>Recommendations:</h1>
+                      <textarea rows="18" cols="90" readonly>{{ f }}</textarea>
+           </div>
+
+    </div>
+</div>
+</body>
+</html>

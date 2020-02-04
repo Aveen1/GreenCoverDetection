@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Green Cover</title>
+
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-image {
+  /* Full height */
+  height: 50%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Images used */
+.img1 { background-image: url("https://www.securityroundtable.org/wp-content/uploads/2018/07/AdobeStock_103287945.jpeg"); }
+.img2 { background-image: url("https://hips.hearstapps.com/ghk.h-cdn.co/assets/15/33/1439490128-plants.jpg"); }
+.img3 { background-image: url("https://i.pinimg.com/originals/24/b9/23/24b923f862b8a5fcfffb7e588c25a92a.jpg"); }
+.img4 { background-image: url("https://wallpaperaccess.com/full/143570.jpg"); }
+.img5 { background-image: url("https://data.whicdn.com/images/317125877/original.jpg"); }
+
+
+/* Position text in the middle of the page/image */
+.bg-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-family: "playfairdisplay";
+  font-weight: bold;
+  font-size: 60px;
+  border: 10px solid #f1f1f1;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 1100px;
+  padding: 20px;
+  text-align: center;
+}
+.bg-text1 {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.3); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: lighter;
+  font-size: 25px; font-family: "playfairdisplay";
+  position: fixed;
+    line-height: inherit;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 900px;
+  padding: 20px;
+  text-align: center;
+}
+
+.button {
+    background-color: rgba(0,0,0, 0.5);
+  color: whitesmoke;
+  padding: 10px 20px 10px 20px; position: fixed;
+    border: 4px solid #f1f1f1;
+    width: 200px;
+    font-family: "playfairdisplay";
+  text-align: center;
+    top: 70%;
+  left: 45%;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px; align-self: center;
+    cursor: pointer;
+
+
+}
+.button1 {border-radius: 20px;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+
+    background-color: rgba(0,0,0, 0.4); /* Fallback color */
+    opacity: 50%;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    right: 0px;
+
+
+
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+
+    background-color: black; /* Fallback color */
+    opacity: 55%;
+
+  float: right;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 25px;
+  transition: 0.3s;
+    color: white;
+  font-size: 17px;
+    height: 70px;
+      font-weight: normal;
+
+
+
+
+
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: lightgray;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: lightgrey;
+
+}
+
+/* Style the tab content */
+.tabcontent {
+    background: black;
+    opacity: 90%;
+    top:70px;
+    height: 500px;
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+  display: none;
+  padding: 70px 200px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+    color: white;
+    text-align: left;
+    font-size: larger;
+}
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+</style>
+</head>
+
+
+
+<body>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Contact')">Contact</button>
+  <button class="tablinks" onclick="openCity(event, 'Team')">About us</button>
+  <button class="tablinks" onclick="openCity(event, 'How')">How it works</button>
+    <button class="tablinks" onclick="openCity(event, 'Home')">Home</button>
+
+</div>
+
+<div id="How" class="tabcontent">
+  <h3>How it works</h3>
+  <p>Green Cover Detector is designed to calculate green area in any part of the world.
+      Using Color Segmentation with Unet model, Satellite Imagery from Mapbox and geojson.io.
+      <br>
+      <br>Select Map in Get Started button and map will pop-up. <br>Select desired co-ordinates and select Submit.
+      <br>You'll find Green Area, Built Area, Green Certification and Recommendations in new window.<br>
+      You can use the same technique to find Green Area in any part of the world.
+  </p>
+</div>
+
+<div id="Team" class="tabcontent">
+  <h3>About us</h3>
+  <p>The concept of Smart City can be defined as collection of services and infrastructures deployed and built to enhance the quality of life of the citizens and are supported by using information and communication technologies.
+      <br>The augmentation of conventional city services and infrastructures with ICT technologies, systems and advanced applications, the everyday life experience becomes more effective, quick, flexible and more sustainable.
+      <br>Smart cities adopt such core systems through the use of technology to efficiently and effectively utilize their limited resources.</p>
+</div>
+
+<div id="Contact" class="tabcontent">
+  <h3>Contact</h3>
+  <p>Our Focus is to provide state of the art resources to the researchers working in technologies towards Smart City Concept.
+<br>
+<br>1st Floor Smart City Lab - HPCC Building
+<br>NED University of Engineering and Technology
+<br>Main University Road, Block 1
+<br>Gulistan-e-Johar
+<br>Karachi(75270)-Sindh
+      <br>
+  <br>Phone Number: +92-2199261261
+<br>Fax:(+92-21)99261255
+<br>Extn No:2682</p>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+
+<div class="bg-image img1"></div>
+<div class="bg-image img2"></div>
+<div class="bg-image img3"></div>
+<div class="bg-image img4"></div>
+<div class="bg-image img5"></div>
+
+<div class="bg-text">GREEN COVER DETECTOR</div>
+<div class="bg-text1">Green Cover Detector calculates the green part and building part in Satellite maps. Provides comparision between both areas to detect if area is green certified or not.</div>
+
+<div>
+    <form action="/map" entype="multipart/formdata">
+<button class="button button1" onclick="map()" >Get Started</button>
+</form>
+</div>
+
+
+
+
+
+</body>
+</html>
