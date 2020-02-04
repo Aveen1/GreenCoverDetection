@@ -4,11 +4,17 @@ build area and percentage of green area.
 Output image with masking of detected green area. 
 
 We’ve used Flask for the application 
+
 Google Earth Engine for Landsat-8 and Copernicus Satellite for satellite imagery
+
 NDVI calculations through javascript and python 
+
 Numpy for mathematical calculations of Latitude and Longitudes
+
 Leaflet maps for the user interface 
+
 Toolbar for drawings using javascript
+
 Overall we have used Python, Javascript, Html and Css with Flask. 
 
 Running Application:
@@ -19,4 +25,5 @@ Running Application:
 5. Then you have to set path for it load in application.
 6. On 3rd page click 'Process' to start processing, it may take a while.
 7. Results will appear in boxes. 
+
 :deciduous_tree: :evergreen_tree: :palm_tree:
