@@ -101,46 +101,41 @@
 
                 // push the coordinates to the json geometry
                 geojson['geometry']['coordinates'] = [coordinates];
+                fetch('/result', {
+
+                    // Specify the method
+                    method: 'POST',
+
+                    // A JSON payload
+                    body: JSON.stringify({
+                        geojson
+                    })
+                }).then(function (response) { // At this point, Flask has printed our JSON
+                    return response.text();
+                }).then(function (text) {
+
+                    console.log('POST response: ');
+
+                    // Should be 'OK' if everything was successful
+                    console.log(text);
+                });
 
                 // Finally, show the poly as a geojson object in the console
-                window.alert(JSON.stringify(geojson));
+                window.alert("Co-ordinates are saved\nPlease click Submit to proceed");
                 var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
-                var dlAnchorElem = document.getElementById('downloadAnchorElem');
-                dlAnchorElem.setAttribute("href",     dataStr     );
-                dlAnchorElem.setAttribute("download", "scene.geojson");
-                dlAnchorElem.click();
+
 
 
             }
 
-            if (type === "circle") {
-                // structure the geojson object
-                var theCenterPt = layer.getLatLng();
-
-                var center = [theCenterPt.lng, theCenterPt.lat];
-                
-
-                var theRadius = layer.getRadius();
-                // push the coordinates to the json geometry
-                var geojson = {};
-                geojson['type'] = 'Feature';
-                geojson['geometry'] = {};
-                geojson['geometry']['type'] = "Polygon";
-                geojson['geometry']['radius'] = theRadius;
-                geojson['geometry']['center'] = [center];
-
-
-                // Finally, show the poly as a geojson object in the console
-                window.alert(JSON.stringify(geojson));
-                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
-                var dlAnchorElem = document.getElementById('downloadAnchorElem');
-                dlAnchorElem.setAttribute("href",     dataStr     );
-                dlAnchorElem.setAttribute("download", "scene.geojson");
-                dlAnchorElem.click();
+            else{
+                 window.alert("Co-ordinates are not selected. \nPlease select co-ordinates with the help of Rectangle or Polygon.");
             }
+
+
 
             drawnItems.addLayer(layer);
-});
+        });
 
         // map.addEventListener('mousedown', function (ev) {
         //     start = ev.latlng;
