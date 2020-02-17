@@ -25,3 +25,11 @@ You can also try application here
 http://smartcitylab.pythonanywhere.com/
 
 :deciduous_tree: :evergreen_tree: :palm_tree:
+
+![GitHub Logo](/o.jpg)
+
+![GitHub Logo](/r.jpg)
+
+![GitHub Logo](/t.jpg)
+
+
