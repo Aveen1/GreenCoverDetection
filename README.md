@@ -20,4 +20,7 @@ Running Application:
 5. On 3rd page click 'Process' to start processing, it may take a while.
 6. Results will appear in boxes. 
 
+You can also try application here
+smartcitylab.pythonanywhere.com
+
 :deciduous_tree: :evergreen_tree: :palm_tree:
