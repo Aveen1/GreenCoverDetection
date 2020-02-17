@@ -14,11 +14,10 @@ Overall we have used Python, Javascript, Html and Css with Flask.
 
 Running Application:
 1. Make sure you have Google Earth Engine api permission.
-2. Run app.py and you can set paths for saving of coordinates.
+2. Run app.py.
 3. Map will appear on 2nd page of the application and now you can draw any shape for the coordinates.
-4. Click 'ok' and coordinates will be saved as 'scene.geojson' file.
-5. Then you have to set path for it load in application.
-6. On 3rd page click 'Process' to start processing, it may take a while.
-7. Results will appear in boxes. 
+4. Click 'ok' and coordinates will be saved.
+5. On 3rd page click 'Process' to start processing, it may take a while.
+6. Results will appear in boxes. 
 
 :deciduous_tree: :evergreen_tree: :palm_tree:
