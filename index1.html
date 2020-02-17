@@ -89,8 +89,7 @@ body, html {
 
 /* Style the tab */
 .tab {
-  overflow: hidden;
-
+    overflow: hidden;
     background-color: rgba(0,0,0, 0.4); /* Fallback color */
     opacity: 50%;
     width: 100%;
@@ -135,7 +134,6 @@ body, html {
   background-color: lightgrey;
 
 }
-
 /* Style the tab content */
 .tabcontent {
     background: black;
@@ -176,17 +174,22 @@ body, html {
   <button class="tablinks" onclick="openCity(event, 'Team')">About us</button>
   <button class="tablinks" onclick="openCity(event, 'How')">How it works</button>
     <button class="tablinks" onclick="openCity(event, 'Home')">Home</button>
+    <img class="img" style="top: 0px; position: absolute; height: 70px" src="{{url_for('static', filename='logon.png')}}" />
+
 
 </div>
 
 <div id="How" class="tabcontent">
   <h3>How it works</h3>
   <p>Green Cover Detector is designed to calculate green area in any part of the world.
-      Using Color Segmentation with Unet model, Satellite Imagery from Mapbox and geojson.io.
+      Using Google Earth Engine and Numpy with Python, Satellite Imagery is taken from Landsat-8 and Copernicus.
       <br>
-      <br>Select Map in Get Started button and map will pop-up. <br>Select desired co-ordinates and select Submit.
-      <br>You'll find Green Area, Built Area, Green Certification and Recommendations in new window.<br>
+      <br>Click Get Started button and world map will pop-up. <br>Select desired coordinates with the help of drawing toolbar, most recommended are Rectangle and Polygon then click Submit.
+      <br>Click Process, processing may take a while so please be patient.
+      <br>You'll see Green Area, Built Area, Green Certification and Recommendations.<br>
       You can use the same technique to find Green Area in any part of the world.
+      <br>
+      <br>Users are requested to select one area at a time, selection of city may cause app to crash.
   </p>
 </div>
 
@@ -236,7 +239,7 @@ function openCity(evt, cityName) {
 <div class="bg-image img5"></div>
 
 <div class="bg-text">GREEN COVER DETECTOR</div>
-<div class="bg-text1">Green Cover Detector calculates the green part and building part in Satellite maps. Provides comparision between both areas to detect if area is green certified or not.</div>
+<div class="bg-text1">Green Cover Detector calculates the green area and non-green area in Satellite Imagery. Provides comparision between both areas to detect if area is green certified or not.</div>
 
 <div>
     <form action="/map" entype="multipart/formdata">
