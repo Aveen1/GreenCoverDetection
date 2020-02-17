@@ -21,6 +21,7 @@ Running Application:
 6. Results will appear in boxes. 
 
 You can also try application here
-smartcitylab.pythonanywhere.com
+
+http://smartcitylab.pythonanywhere.com/
 
 :deciduous_tree: :evergreen_tree: :palm_tree:
