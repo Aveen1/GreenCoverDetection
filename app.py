@@ -1,19 +1,31 @@
-
-from flask import Flask, render_template, make_response
-
+from flask import Flask, render_template, make_response, url_for, request, jsonify
 import ee
 import numpy as np
-from skimage.segmentation import slic, mark_boundaries
+
 import cv2
+import json
 
 
 
 
-import time
 
 app = Flask(__name__, static_url_path='/static')
 
-@app.route('/')
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
+
+
+polygon = None
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template("index1.html")
 
@@ -22,53 +34,47 @@ def index():
 def map():
     return render_template("test.html")
 
-@app.route('/result')
+
+@app.route('/result', methods=['GET', 'POST'])
 def result():
+
+    if request.method == 'POST':
+        print('Incoming..')
+        req = request.get_json(force=True)
+        #a = json.loads(req)
+        global polygon
+        polygon = req["geojson"]["geometry"]["coordinates"][0] # parse as JSON
+        print(polygon)
+
     return render_template("result.html")
 
-@app.route('/code')
+
+
+@app.route('/code', methods=['GET', 'POST'])
 def code():
-    # init the ee object
+    global polygon
     ee.Initialize()
 
-    with open("/Users/admin/Downloads/scene.geojson", "r") as file:
+    """ with open("/Users/admin/Downloads/scene.geojson", "r") as file:
         geojson = file.readlines()
         geojson = eval(geojson[0])
         geometry = geojson["geometry"]
         cords = geometry["coordinates"]
         polygon = cords[0]
-    print(polygon)
-
-    def stretch_8bit(bands, lower_percent=2, higher_percent=98):
-        out = np.zeros_like(bands)
-        for i in range(3):
-            a = 0  # np.min(band)
-            b = 255  # np.max(band)
-            c = np.percentile(bands[:, :, i], lower_percent)
-            d = np.percentile(bands[:, :, i], higher_percent)
-            t = a + (bands[:, :, i] - c) * (b - a) / (d - c)
-            t[t < a] = a
-            t[t > b] = b
-            out[:, :, i] = t
-        return out.astype(np.uint8)
-
-        # Define the area
-
+    print(polygon) """
     area = ee.Geometry.Polygon(polygon)
 
-    # define the image
+
 
     coll = ee.ImageCollection("COPERNICUS/S2_SR")
     image_area = coll.filterBounds(area)
     img = image_area.median()
 
-    timedate = img.get('GENERATION_TIME').getInfo()
 
-    # get the lat lon and add the ndvi
 
     bands = ["B4", "B3", "B2"]
     band_outputs = {}
-    # red
+    #red
     for band in bands:
 
         image = img.select(band).rename(["temp"])
@@ -173,7 +179,10 @@ def code():
     output *= 255
     output = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
 
-    cv2.imwrite("static/v.jpg", output)
+    cv2.imwrite("/home/smartcitylab/mysite/static/c.jpg", output)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     #CALCULATIONS
     total_img = np.sum(rgb, axis=-1)
@@ -182,10 +191,10 @@ def code():
     build = total-green
     percent = (green / total) * 100
 
-    if percent < 40:
-        p1="Plantation less than 40% is not considered as optimal so kindly plant more trees."
+    if percent < 30:
+        p1="Plantation less than 30% is not considered as optimal so kindly plant more trees."
     else:
-        p1="Plantation is above 40%, you can plant more if you need or help others to plant trees."
+        p1="Plantation is above 30%, you can plant more if you need or help others to plant trees."
 
 
     return render_template("result.html", b=total, c=green, d=build, e=percent, f=p1)
@@ -195,15 +204,8 @@ def code():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-
-
-
-
-
+    app.debug = True
+    app.run()
 
 
 
