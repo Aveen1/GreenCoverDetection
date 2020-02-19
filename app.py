@@ -120,12 +120,12 @@ def code():
     b = np.expand_dims(band_outputs["B2"], -1).astype("float32")
     rgb = np.concatenate((r, g, b), axis=2) / 3000
 
-    coll = ee.ImageCollection("LANDSAT/LC08/C01/T1_TOA")
+    coll = ee.ImageCollection("COPERNICUS/S2_SR")
     image_area = coll.filterBounds(area)
     img = image_area.median()
 
     RED = img.select("B4")
-    NIR = img.select("B5")
+    NIR = img.select("B8")
     NDVI = ee.Image(img.subtract(RED).divide(NIR.add(RED)))
 
     #get the lat lon and add the ndvi
@@ -138,7 +138,7 @@ def code():
         maxPixels=1e8,
         scale=10)
 
-    data = np.array((ee.Array(latlon.get("B5")).getInfo()))
+    data = np.array((ee.Array(latlon.get("B8")).getInfo()))
     lats = np.array((ee.Array(latlon.get("latitude")).getInfo()))
     lons = np.array((ee.Array(latlon.get("longitude")).getInfo()))
     print(data.shape)
