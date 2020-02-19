@@ -4,7 +4,7 @@ build area and percentage of green area.
 Output image with masking of detected green area. 
 
 We’ve used Flask for the application. 
-Google Earth Engine for Landsat-8 and Copernicus Satellite for satellite imagery.
+Google Earth Engine for Sentinel-2 and Copernicus Satellite for satellite imagery.
 NDVI calculations through javascript and python. 
 Numpy for mathematical calculations of Latitude and Longitudes.
 Leaflet maps for the user interface. 
