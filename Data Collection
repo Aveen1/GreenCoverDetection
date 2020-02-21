@@ -1,3 +1,6 @@
+#This file takes the co-ordinates and with the help of Sentinel and Landsat it provides data of past 07 years and current data as well, 
+#This file is not added in application due to number of outputs.
+
 import ee
 import numpy as np
 from skimage.segmentation import slic, mark_boundaries
